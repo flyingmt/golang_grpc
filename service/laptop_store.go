@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"log"
 	"sync"
-	"time"
+	_ "time"
 
 	"github.com/flyingmt/pcbook/pb"
 	"github.com/jinzhu/copier"
@@ -80,8 +80,8 @@ func (store *InMemoryLaptopStore) Search(
 
     for _, laptop := range store.data {
         // heavy processing
-        time.Sleep(time.Second)
-        log.Print("checking laptop id: ", laptop.GetId())
+        // time.Sleep(time.Second)
+        // log.Print("checking laptop id: ", laptop.GetId())
 
         if ctx.Err() == context.Canceled || ctx.Err() == context.DeadlineExceeded {
             log.Print("context is cancelled")
