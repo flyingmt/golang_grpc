@@ -7,14 +7,14 @@ import (
 
 // ProtobufToJSON converts protocol buffer message to JSON string
 func ProtobufToJSON(message proto.Message) (string, error) {
-    m := protojson.MarshalOptions{
-        UseEnumNumbers: false,
-        EmitUnpopulated: true,
-        Indent: "  ",
-        UseProtoNames: true,
-    }
+	m := protojson.MarshalOptions{
+		UseEnumNumbers:  false,
+		EmitUnpopulated: true,
+		Indent:          "  ",
+		UseProtoNames:   true,
+	}
 
-    jsonBtyes, err := m.Marshal(message)
+	jsonBtyes, err := m.Marshal(message)
 
-    return string(jsonBtyes), err
+	return string(jsonBtyes), err
 }
