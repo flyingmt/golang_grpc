@@ -6,7 +6,6 @@ import (
 	"errors"
 	"io"
 	"log"
-	"time"
 	_ "time"
 
 	"github.com/flyingmt/pcbook/pb"
@@ -162,13 +161,13 @@ func (server *LaptopServer) UploadImage(stream pb.LaptopService_UploadImageServe
 
         _, err = imageData.Write(chunck)
         if err != nil {
-            return logError(status.Errorf(codes.Internal, "cannot write chuck data: %w", err))
+            return logError(status.Errorf(codes.Internal, "cannot write chuck data: %v", err))
         }
     }
 
     imageID, err := server.imageStore.Save(laptopID, imageType, imageData)
     if err != nil {
-        return logError(status.Errorf(codes.Internal, "cannot save image to the store: %w", err))
+        return logError(status.Errorf(codes.Internal, "cannot save image to the store: %v", err))
     }
 
     res := &pb.UploadImageResponse{
