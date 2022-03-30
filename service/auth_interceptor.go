@@ -28,12 +28,12 @@ func (interceptor *AuthInterceptor) Unary() grpc.UnaryServerInterceptor {
 		req interface{}, 
 		info *grpc.UnaryServerInfo, 
 		handler grpc.UnaryHandler,
-	) (resp interface{}, err error) {
+	) (interface{}, error) {
 		log.Println("--> unary interceptor: ", info.FullMethod)
 
-		err2 := interceptor.authorize(ctx, info.FullMethod)
-		if err2 != nil {
-			return nil, err2
+		err := interceptor.authorize(ctx, info.FullMethod)
+		if err != nil {
+			return nil, err
 		}
 
 		return handler(ctx, req)
@@ -67,7 +67,7 @@ func (interceptor *AuthInterceptor) authorize(ctx context.Context, method string
 		return nil
 	}
 
-	md, ok := metadata.FromOutgoingContext(ctx)
+	md, ok := metadata.FromIncomingContext(ctx)
 	if !ok {
 		return status.Errorf(codes.Unauthenticated, "Metadata is not provided")
 	}

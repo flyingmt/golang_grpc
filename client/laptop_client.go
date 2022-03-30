@@ -157,7 +157,7 @@ func (laptopClient *LaptopClient) RateLaptop(laptopIDs []string, scores []float6
 
     stream, err := laptopClient.service.RateLaptop(ctx)
     if err != nil {
-        return fmt.Errorf("Cannot rate laptop: %v", err)
+        return fmt.Errorf("cannot rate laptop: %v", err)
     }
 
     waitResponse := make(chan error)
@@ -171,7 +171,7 @@ func (laptopClient *LaptopClient) RateLaptop(laptopIDs []string, scores []float6
                 return
             }
             if err != nil {
-                waitResponse <- fmt.Errorf("Cannot receive stream response: %v", err)
+                waitResponse <- fmt.Errorf("cannot receive stream response: %v", err)
                 return
             }
 
@@ -188,7 +188,7 @@ func (laptopClient *LaptopClient) RateLaptop(laptopIDs []string, scores []float6
 
         err := stream.Send(req)
         if err != nil {
-            return fmt.Errorf("Cannot send stream request: %v - %v", err, stream.RecvMsg(nil))
+            return fmt.Errorf("cannot send stream request: %v - %v", err, stream.RecvMsg(nil))
         }
 
         log.Print("sent request: ", req)
@@ -196,7 +196,7 @@ func (laptopClient *LaptopClient) RateLaptop(laptopIDs []string, scores []float6
 
     err = stream.CloseSend()
     if err != nil {
-        return fmt.Errorf("Cannot close send: %v", err)
+        return fmt.Errorf("cannot close send: %v", err)
     }
 
     err = <- waitResponse
